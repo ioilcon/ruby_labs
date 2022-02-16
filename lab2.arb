@@ -2,7 +2,7 @@ def digits_processing(number, accumulator, func, pr)
     if (number == 0) then
         accumulator
     else
-        digits_processing(number / 10, pr.call(number % 10)?func.call(number % 10, accumulator):accumulator, func, pr)
+        digits_processing(number / 10, pr.(number % 10)?func.(number % 10, accumulator):accumulator, func, pr)
     end
 end
 
@@ -26,7 +26,7 @@ def number_divisors(number, pr, cur = 1, accumulator = [])
     if (cur > number) then
         accumulator
     else
-        number_divisors(number, pr, cur + 1, (number % cur == 0)&&pr.call(cur)?accumulator.push(cur):accumulator)
+        number_divisors(number, pr, cur + 1, (number % cur == 0)&&pr.(cur)?accumulator.push(cur):accumulator)
     end
 end
 
@@ -61,13 +61,24 @@ def too_long_to_put_it_there_sum(number)
     too_long_to_put_it_there(number).sum()
 end
 
-puts("сумма цифр: " + digits_sum(ARGV[0].to_i).to_s)
-puts("произведение цифр: " + digits_mult(ARGV[0].to_i).to_s)
-puts("максимальная цифра: " + max_digit(ARGV[0].to_i).to_s)
-puts("минимальная цифра: " + min_digit(ARGV[0].to_i).to_s)
+# functions = [:digits_sum, :digits_mult, :min_digit, :max_digit]
+# puts (method(functions[2]).to_proc.call(123))
 
-puts("задание 1. количество делителей, не кратных 3м: " + divisors_not_divisible_by_3_count(ARGV[0].to_i).to_s)
-p(divisors_not_divisible_by_3(ARGV[0].to_i))
-puts("задание 2. минимальная нечётная цифра: " + min_odd_digit(ARGV[0].to_i).to_s)
-puts("задание 3. сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: " + too_long_to_put_it_there_sum(ARGV[0].to_i).to_s)
-p(too_long_to_put_it_there(ARGV[0].to_i))
+functions = [
+'puts("сумма цифр: " + digits_sum(ARGV[0].to_i).to_s)', 
+'puts("произведение цифр: " + digits_mult(ARGV[0].to_i).to_s)', 
+'puts("максимальная цифра: " + max_digit(ARGV[0].to_i).to_s)', 
+'puts("минимальная цифра: " + min_digit(ARGV[0].to_i).to_s)', 
+
+'p(divisors_not_divisible_by_3(ARGV[0].to_i))
+puts("задание 1. количество делителей, не кратных 3м: " + divisors_not_divisible_by_3_count(ARGV[0].to_i).to_s)', 
+'puts("задание 2. минимальная нечётная цифра: " + min_odd_digit(ARGV[0].to_i).to_s)', 
+'p(too_long_to_put_it_there(ARGV[0].to_i))
+puts("задание 3. сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: " + too_long_to_put_it_there_sum(ARGV[0].to_i).to_s)'
+]
+
+if (ARGV[1].to_i >= 0 && ARGV[1].to_i <= 7) then
+    puts eval(functions[ARGV[1].to_i - 1])
+else
+    puts("hello world")
+end
