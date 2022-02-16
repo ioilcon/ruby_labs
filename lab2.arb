@@ -1,4 +1,4 @@
-def digits_processing(number, accumulator, func, pr)
+def digits_processing(number, accumulator, func, pr = Proc.new {true})
     if (number == 0) then
         accumulator
     else
@@ -7,19 +7,19 @@ def digits_processing(number, accumulator, func, pr)
 end
 
 def digits_sum(number)
-    digits_processing(number, 0, lambda {|cur, acc| acc + cur}, Proc.new {true})
+    digits_processing(number, 0, lambda {|cur, acc| acc + cur})
 end
 
 def digits_mult(number)
-    digits_processing(number, 1, lambda {|cur, acc| acc * cur}, Proc.new {true})
+    digits_processing(number, 1, lambda {|cur, acc| acc * cur})
 end
 
 def max_digit(number)
-    digits_processing(number, 0, lambda {|cur, acc| (cur > acc)?cur:acc}, Proc.new {true})
+    digits_processing(number, 0, lambda {|cur, acc| (cur > acc)?cur:acc})
 end
 
 def min_digit(number)
-    digits_processing(number, 9, lambda {|cur, acc| (cur < acc)?cur:acc}, Proc.new {true})
+    digits_processing(number, 9, lambda {|cur, acc| (cur < acc)?cur:acc})
 end
 
 def number_divisors(number, pr, cur = 1, accumulator = [])
@@ -62,7 +62,7 @@ def too_long_to_put_it_there_sum(number)
 end
 
 # functions = [:digits_sum, :digits_mult, :min_digit, :max_digit]
-# puts (method(functions[2]).to_proc.call(123))
+# puts (method(functions[2]).to_proc.call(666))
 
 functions = [
 'puts("сумма цифр: " + digits_sum(ARGV[0].to_i).to_s)', 
@@ -70,15 +70,15 @@ functions = [
 'puts("максимальная цифра: " + max_digit(ARGV[0].to_i).to_s)', 
 'puts("минимальная цифра: " + min_digit(ARGV[0].to_i).to_s)', 
 
-'p(divisors_not_divisible_by_3(ARGV[0].to_i))
-puts("задание 1. количество делителей, не кратных 3м: " + divisors_not_divisible_by_3_count(ARGV[0].to_i).to_s)', 
+'puts("задание 1. количество делителей, не кратных 3м: " + divisors_not_divisible_by_3_count(ARGV[0].to_i).to_s)
+p(divisors_not_divisible_by_3(ARGV[0].to_i))', 
 'puts("задание 2. минимальная нечётная цифра: " + min_odd_digit(ARGV[0].to_i).to_s)', 
-'p(too_long_to_put_it_there(ARGV[0].to_i))
-puts("задание 3. сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: " + too_long_to_put_it_there_sum(ARGV[0].to_i).to_s)'
+'puts("задание 3. сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: " + too_long_to_put_it_there_sum(ARGV[0].to_i).to_s)
+p(too_long_to_put_it_there(ARGV[0].to_i))'
 ]
 
 if (ARGV[1].to_i >= 0 && ARGV[1].to_i <= 7) then
-    puts eval(functions[ARGV[1].to_i - 1])
+    eval(functions[ARGV[1].to_i - 1])
 else
     puts("hello world")
 end
