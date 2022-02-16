@@ -76,9 +76,12 @@ p(divisors_not_divisible_by_3(ARGV[0].to_i))',
 'puts("задание 3. сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: " + too_long_to_put_it_there_sum(ARGV[0].to_i).to_s)
 p(too_long_to_put_it_there(ARGV[0].to_i))'
 ]
-
-if (ARGV[1].to_i >= 0 && ARGV[1].to_i <= 7) then
-    eval(functions[ARGV[1].to_i - 1])
-else
-    puts("hello world")
+begin
+    if (Integer(ARGV[1]) >= 0 && Integer(ARGV[1]) <= 7) then
+        eval(functions[ARGV[1].to_i - 1])
+    else
+        puts("hello world")
+    end
+    rescue
+        puts("hello world")
 end
