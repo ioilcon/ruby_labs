@@ -1,0 +1,13 @@
+def digits_processing(number, accumulator, func, pr)
+    if (number == 0) then
+        accumulator
+    else
+        digits_processing(number / 10, pr.call(number % 10)?func.call(number % 10, accumulator):accumulator, func, pr)
+    end
+end
+
+def digits_sum(number)
+    digits_processing(number, 0, lambda {|x, y| x + y}, Proc.new {true})
+end
+
+puts(digits_sum(ARGV[0].to_i))
