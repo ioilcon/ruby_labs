@@ -17,3 +17,13 @@ else
         puts("неплохой язык, но Ruby лучше")
     end
 end
+
+puts("введи системную команду: ")
+os_comand = gets
+puts("результат системной команды: ")
+system(os_comand)
+
+puts("введи команду Ruby: ")
+ruby_comand = gets
+puts("результат команды Ruby: ")
+puts eval(ruby_comand)
