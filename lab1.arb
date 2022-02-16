@@ -1,0 +1,2 @@
+puts("hello_world")
+puts("привет, #{ARGV[0]}!")
