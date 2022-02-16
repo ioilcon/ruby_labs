@@ -22,7 +22,29 @@ def min_digit(number)
     digits_processing(number, 9, lambda {|cur, acc| (cur < acc)?cur:acc}, Proc.new {true})
 end
 
-puts(digits_sum(ARGV[0].to_i))
-puts(digits_mult(ARGV[0].to_i))
-puts(max_digit(ARGV[0].to_i))
-puts(min_digit(ARGV[0].to_i))
+def number_divisors(number, pr, cur = 1, accumulator = [])
+    if cur > number then
+        accumulator
+    else
+        number_divisors(number, pr, cur + 1, (number % cur == 0)&&pr.call(cur)?accumulator.push(cur):accumulator)
+    end
+end
+
+# 1
+def divisors_not_divisible_by_3(number)
+    number_divisors(number, lambda {|divisor| divisor % 3 != 0})
+end
+
+# 2
+def min_odd_digit(number)
+    digits_processing(number, 9, lambda {|cur, acc| (cur < acc)?cur:acc}, lambda {|min_digit| min_digit % 2 != 0})
+end
+
+puts("сумма цифр: " + digits_sum(ARGV[0].to_i).to_s)
+puts("произведение цифр: " + digits_mult(ARGV[0].to_i).to_s)
+puts("максимальная цифра: " + max_digit(ARGV[0].to_i).to_s)
+puts("минимальная цифра: " + min_digit(ARGV[0].to_i).to_s)
+
+puts("задание 1. количество делителей, не кратных 3м: " + divisors_not_divisible_by_3(ARGV[0].to_i).length.to_s)
+p(divisors_not_divisible_by_3(ARGV[0].to_i))
+puts("задание 2. минимальная нечётная цифра: " + min_odd_digit(ARGV[0].to_i).to_s)
