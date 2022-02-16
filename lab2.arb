@@ -7,7 +7,22 @@ def digits_processing(number, accumulator, func, pr)
 end
 
 def digits_sum(number)
-    digits_processing(number, 0, lambda {|x, y| x + y}, Proc.new {true})
+    digits_processing(number, 0, lambda {|cur, acc| acc + cur}, Proc.new {true})
+end
+
+def digits_mult(number)
+    digits_processing(number, 1, lambda {|cur, acc| acc * cur}, Proc.new {true})
+end
+
+def max_digit(number)
+    digits_processing(number, 0, lambda {|cur, acc| (cur > acc)?cur:acc}, Proc.new {true})
+end
+
+def min_digit(number)
+    digits_processing(number, 9, lambda {|cur, acc| (cur < acc)?cur:acc}, Proc.new {true})
 end
 
 puts(digits_sum(ARGV[0].to_i))
+puts(digits_mult(ARGV[0].to_i))
+puts(max_digit(ARGV[0].to_i))
+puts(min_digit(ARGV[0].to_i))
