@@ -2,16 +2,16 @@ puts("hello_world")
 puts("привет, #{ARGV[0]}!")
 ARGV.clear()
 puts 'какой яп тебе нравится?'
-fav_lang = gets
+fav_lang = gets.chomp
 if fav_lang == "ruby" then
     puts("ясно, подлиза")
 else
     case
-    when fav_lang == "C++"
+    when fav_lang == "c++"
         puts("отлично, но скоро будет Ruby")
-    when fav_lang == "C#"
+    when fav_lang == "c#"
         puts("класс, но Ruby тебя ждёт")
-    when fav_lang == "Kotlin"
+    when fav_lang == "kotlin"
         puts("супер, а скоро станет Ruby")
     else
         puts("неплохой язык, но Ruby лучше")
@@ -26,4 +26,4 @@ system(os_comand)
 puts("введи команду Ruby: ")
 ruby_comand = gets
 puts("результат команды Ruby: ")
-puts eval(ruby_comand)
+eval(ruby_comand)
