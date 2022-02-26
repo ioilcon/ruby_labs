@@ -1,0 +1,12 @@
+def elements_processing(list, func, accumulator = [], pr = Proc.new {true})
+    for element in list do
+        if pr.(element) then
+            accumulator = func.(element, accumulator)
+        end
+    end
+    accumulator
+end
+
+def one_element_processing(list, func, accumulator = [], pr = Proc.new {true})
+    elements_processing(list, func, accumulator, pr).first()
+end
