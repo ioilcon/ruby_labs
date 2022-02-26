@@ -1,4 +1,5 @@
 def elements_processing(list, func, accumulator = [], pr = Proc.new {true})
+    return list if list.empty?
     for element in list do
         if pr.(element) then
             accumulator = func.(element, accumulator)
@@ -9,4 +10,20 @@ end
 
 def one_element_processing(list, func, accumulator = [], pr = Proc.new {true})
     elements_processing(list, func, accumulator, pr).first()
+end
+
+def list_max(list)
+    one_element_processing(list, lambda { |elem, acc| (elem > acc.first())?[elem]:acc}, [0])
+end
+
+def list_min(list)
+    one_element_processing(list, lambda { |elem, acc| (elem < acc.first())?[elem]:acc}, [9])
+end
+
+def list_sum(list)
+    one_element_processing(list, lambda { |elem, acc| [acc.first + elem]}, [0])
+end
+
+def list_mul(list)
+    one_element_processing(list, lambda { |elem, acc| [acc.first * elem]}, [1])
 end
