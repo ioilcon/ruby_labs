@@ -27,3 +27,34 @@ end
 def list_mul(list)
     one_element_processing(list, lambda { |elem, acc| [acc.first * elem]}, [1])
 end
+
+functions = [
+    'puts("минимальный элемент: " + list_min(list).to_s)',
+    'puts("максимальный элемент: " + list_max(list).to_s)',
+    'puts("сумма элементов: " + list_sum(list).to_s)',
+    'puts("произведение элементов: " + list_mul(list).to_s)'
+]
+
+begin
+    func_choice = Integer(ARGV[0])
+    input_choice = ARGV[1]
+    ARGV.clear()
+    case
+    when input_choice == "-k"
+        list = []
+        puts("введите список:")
+        list = elements_processing(gets.split(), lambda { |elem, acc| acc.push(elem.to_i)})
+    when input_choice == "-f" 
+        input = File.new(ARGV[2] + ".txt")
+        list = elements_processing(input.readline.split(), lambda { |elem, acc| acc.push(elem.to_i)})
+    else
+        puts("мысли я не читаю")
+    end
+
+    if (func_choice >= 0 && func_choice <= 4) then
+        p list
+        eval(functions[func_choice - 1])
+    else
+        puts("hello world")
+    end
+end
