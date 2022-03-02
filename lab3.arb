@@ -38,23 +38,27 @@ functions = [
 begin
     func_choice = Integer(ARGV[0])
     input_choice = ARGV[1]
-    ARGV.clear()
-    case
-    when input_choice == "-k"
-        list = []
-        puts("введите список:")
-        list = elements_processing(gets.split(), lambda { |elem, acc| acc.push(elem.to_i)})
-    when input_choice == "-f" 
-        input = File.new(ARGV[2] + ".txt")
-        list = elements_processing(input.readline.split(), lambda { |elem, acc| acc.push(elem.to_i)})
-    else
-        puts("мысли я не читаю")
-    end
-
     if (func_choice >= 0 && func_choice <= 4) then
+
+        case
+        when input_choice == "-k"
+            ARGV.clear()
+            list = []
+            puts("введите список:")
+            list = elements_processing(gets.split(), lambda { |elem, acc| acc.push(elem.to_i)})
+        when input_choice == "-f" 
+            input = File.new(ARGV[2] + ".txt")
+            list = elements_processing(input.readline.split(), lambda { |elem, acc| acc.push(elem.to_i)})
+        else
+            puts("мысли я не читаю")
+        end
+
         p list
         eval(functions[func_choice - 1])
+    
     else
         puts("hello world")
     end
+    rescue
+        puts("hello world")
 end
