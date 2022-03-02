@@ -1,13 +1,19 @@
 # 5, 17, 29, 41, 53
 
 def elements_processing(list, func, accumulator = [], el_pr = Proc.new {true}, ind_pr = Proc.new {true}, ind = 0)
-    if ind == list.length then
+    if ind == list.length() then
         accumulator
     else
-        elements_processing(list, func, (el_pr(list[ind]) && ind_pr(ind))?func(list, ind, acc):accumulator, el_pr, ind, ind + 1)
+        elements_processing(list, func, (el_pr.(list, ind) && ind_pr.(ind))?func.(list, ind, accumulator):accumulator, el_pr, ind_pr, ind + 1)
     end
 end
 
-def one_element_processing(list, func, accumulator = [], pr = Proc.new {true})
-    elements_processing(list, func, accumulator, pr).first()
+def one_element_processing(list, func, accumulator = [], el_pr = Proc.new {true}, ind_pr = Proc.new {true})
+    elements_processing(list, func, accumulator, el_pr, ind_pr).first()
+end
+
+# 5
+
+def local_min(list, ind)
+    one_element_processing(list, Proc.new {|list, ind| [true]}, [false], lambda { |list, ind| (ind == 0 || list[ind] < list[ind - 1]) && (ind == list.length() - 1 || list[ind] < list[ind + 1]) }, lambda { |cur_ind| cur_ind == ind})
 end
