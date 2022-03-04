@@ -38,8 +38,7 @@ functions = [
 begin
     func_choice = Integer(ARGV[0])
     input_choice = ARGV[1]
-    if (func_choice >= 0 && func_choice <= 4) then
-
+    if (func_choice >= 1 && func_choice <= 4) then
         case
         when input_choice == "-k"
             ARGV.clear()
@@ -55,10 +54,10 @@ begin
 
         p list
         eval(functions[func_choice - 1])
-    
     else
         puts("hello world")
     end
+    
     rescue
         puts("hello world")
 end
