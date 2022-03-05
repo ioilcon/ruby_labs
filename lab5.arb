@@ -8,12 +8,18 @@ end
 
 # 7
 
-def isDowncasePalindrome?(str)
+def is_downcase_palindrome?(str)
     lambda{ |str| str == str.reverse()}.(str.delete("^a-z"))
     # ! str.delete!("^a-z") == str.reverse()
 end
 
+# 14
 
-test = "abHGSc1VGba"
+def sort_by_length(str)
+    (str.split().sort_by! {|word| word.length()})*" "
+end
+
+test = "hgvbjh jhb jhb kjnkj"
 puts string_shuffle(test)
-puts isDowncasePalindrome?(test)
+puts is_downcase_palindrome?(test)
+p sort_by_length(test)
