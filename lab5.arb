@@ -6,3 +6,14 @@ def string_shuffle(str)
     str.chars.shuffle()*""
 end
 
+# 7
+
+def isDowncasePalindrome?(str)
+    lambda{ |str| str == str.reverse()}.(str.delete("^a-z"))
+    # ! str.delete!("^a-z") == str.reverse()
+end
+
+
+test = "abHGSc1VGba"
+puts string_shuffle(test)
+puts isDowncasePalindrome?(test)
