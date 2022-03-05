@@ -19,6 +19,18 @@ def sort_by_length(str)
     (str.split().sort_by {|word| word.length()})*" "
 end
 
+# 2.5
+
+def max_sequence_of_kirillic(str)
+    str.split(/[^А-Яа-я]+/).max {|word| word.length()}.length()
+end
+
+# 2.14
+
+def max_sequence_of_digits(str)
+    str.split(/[^1-9]+/).max {|word| word.length()}.length()
+end
+
 functions = [
     'puts("Перемешанная строка:")
      puts(string_shuffle(str))',
