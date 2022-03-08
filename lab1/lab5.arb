@@ -21,29 +21,35 @@ end
 
 # 5.2
 
-def max_sequence_of_kirillic(str)
+def max_sequence_of_kirillic_length(str)
     str.split(/[^А-Яа-я]+/).max {|word| word.length()}.length()
 end
 
 # 7.2
 
 def max_number(str)
-    str.split(/[^1-9]+/).max {|word| word.length()}.to_i()
+    str.split(/[^1-9]+/).sort.max {|word| word.length()}.to_i()
 end
 
 # 14.2
 
-def max_sequence_of_digits(str)
+def max_sequence_of_digits_length(str)
     str.split(/[^1-9]+/).max {|word| word.length()}.length()
 end
 
 functions = [
-    'puts("Перемешанная строка:")
+    'puts("перемешанная строка:")
      puts(string_shuffle(str))',
-    'puts("Образуют ли прописные символы палиндром?")
+    'puts("образуют ли прописные символы палиндром?")
      puts(is_downcase_palindrome?(str))',
-    'puts("Отсортированная строка:")
-     puts(sort_by_length(str))'
+    'puts("отсортированная строка:")
+     puts(sort_by_length(str))',
+    'puts("наибольшее количество символов кириллицы подряд:")
+     puts(max_sequence_of_kirillic_length(str))',
+    'puts("наименьшее натуральное число в строке:")
+     puts(max_number(str))',
+    'puts("наибольшее количество цифр подряд:")
+     puts(max_sequence_of_digits_length(str))'
 ]
 
 begin
@@ -51,7 +57,7 @@ begin
     input_choice = ARGV[1]
     input_file_name = ARGV[2]
     ARGV.clear()
-    if (func_choice >= 1 && func_choice <= 3) then
+    if (func_choice >= 1 && func_choice <= 6) then
         case
         when input_choice == "-k"
             puts("введите строку:")
@@ -68,6 +74,5 @@ begin
     else
         puts("hello world")
     end
-    rescue
-        puts("hello world")
+
 end
