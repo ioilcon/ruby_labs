@@ -1,0 +1,17 @@
+class Department
+    attr_accessor :name, :phone_number
+
+    def initialize(name, phone_number)
+        @name, @phone_number = name, phone_number
+    end
+
+    def to_s
+        "Department object\nName: #{name} \nPhone number: #{phone_number}"
+    end
+end
+
+begin
+    oleg = Department.new("Oleg", "+79778930093")
+    pavel = Department.new("Pavel", "+79009053535")
+    puts oleg, pavel
+end
