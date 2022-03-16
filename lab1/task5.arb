@@ -37,19 +37,30 @@ def max_sequence_of_digits_length(str)
     str.split(/[^1-9]+/).max {|word| word.length()}.length()
 end
 
+# 2
+
+def find_date(str)
+    str.scan(//) # когда-нибудь доделать
+end
+
+def sort_by_avg_ascii(strs)
+    strs.sort_by {|str| str.bytes.sum() / str.length()}
+end
+
 functions = [
     'puts("перемешанная строка:")
-     puts(string_shuffle(str))',
+     puts(string_shuffle(str[0]))',
     'puts("образуют ли прописные символы палиндром?")
-     puts(is_downcase_palindrome?(str))',
+     puts(is_downcase_palindrome?(str[0]))',
     'puts("отсортированная строка:")
-     puts(sort_by_length(str))',
+     puts(sort_by_length(str[0]))',
     'puts("наибольшее количество символов кириллицы подряд:")
-     puts(max_sequence_of_kirillic_length(str))',
+     puts(max_sequence_of_kirillic_length(str[0]))',
     'puts("наименьшее натуральное число в строке:")
-     puts(max_number(str))',
+     puts(max_number(str[0]))',
     'puts("наибольшее количество цифр подряд:")
-     puts(max_sequence_of_digits_length(str))'
+     puts(max_sequence_of_digits_length(str[0]))',
+     'p sort_by_avg_ascii(str)'
 ]
 
 begin
@@ -57,14 +68,14 @@ begin
     input_choice = ARGV[1]
     input_file_name = ARGV[2]
     ARGV.clear()
-    if (func_choice >= 1 && func_choice <= 6) then
+    if (func_choice >= 1 && func_choice <= 7) then
         case
         when input_choice == "-k"
             puts("введите строку:")
             str = gets.chomp()
         when input_choice == "-f" 
             input = File.new(input_file_name + ".txt")
-            str = input.readline.chomp()
+            str = input.read.split(/\n/)
         else
             puts("мысли я не читаю")
         end
