@@ -53,12 +53,12 @@ class Department
         end
     end
 
-    def duties
-        "\t" + @duties.join("\n\t")
+    def duties(separator)
+        @duties.join(separator)
     end
 
     def putsDuties
-        puts "#{name}'s duties: \n#{duties}"
+        puts "#{name}'s duties: \n#{duties(", ")}"
     end
     
     def Department.real_number?(number)
@@ -72,17 +72,18 @@ class Department
 
     def Department.print_objects(array)
         array.length.times do |index|
-            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: \n\t#{array[index].duties.split(/\n/).join("\n\t")}"
+            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: \n\t\t#{array[index].duties("\n\t\t")}"
         end
     end
 
     def Department.write_to_txt(array, file_name)
         output = File.new(file_name + ".txt", "w")
-
+        output.puts array.map { |object| object = ([] << object.name << object.phone_number << object.duties("\n")).join("\n") }.join("\n#\n")
+        output.close()
     end
 
     def to_s
-        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: \n#{duties}"
+        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: \n\t#{duties("\n\t")}"
     end
 end
 
@@ -97,6 +98,7 @@ begin
     oleg.select_duty(3)
     oleg.set_duty("удалить это задание")
     oleg.delete_duty
-    puts oleg
-    Department.print_objects(Department.read_from_txt("some_Department_data"))
+    # puts oleg
+    # Department.print_objects(Department.read_from_txt("some_Department_data"))
+    Department.write_to_txt(Department.read_from_txt("some_Department_data"), "exported_data")
 end
