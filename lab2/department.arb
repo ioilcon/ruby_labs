@@ -1,0 +1,123 @@
+class Department
+    attr_accessor :name
+    attr_reader :phone_number
+
+    def initialize(name, phone_number, duties = [])
+        @name, @duties = name, duties
+        self.phone_number = phone_number
+        @selected_duty = 0
+    end
+
+    def phone_number=(number)
+        if Department.real_number?(number)
+            @phone_number = number
+        else
+            # Exeption
+        end
+    end
+
+    def add_duty(duty)
+        @duties.push(duty)
+    end
+
+    def select_duty(index)
+        if index < @duties.length() then
+            @selected_duty = index
+        else
+            # Exeption
+        end
+    end
+
+    def delete_duty
+        if @selected_duty < @duties.length() then
+            @duties.delete_at(@selected_duty)
+            @selected_duty = 0
+        else
+            # Exeption
+        end
+    end
+
+    def get_duty
+        if @selected_duty < @duties.length() then
+            @duties[@selected_duty]
+        else
+            # Exeption
+        end
+    end
+
+    def set_duty(new_duty)
+        if @selected_duty < @duties.length() then
+            @duties[@selected_duty] = new_duty
+        else
+            # Exeption
+        end
+    end
+
+    def duties(separator)
+        @duties.join(separator)
+    end
+
+    def putsDuties
+        puts "#{name}'s duties: \n#{duties(", ")}"
+    end
+    
+    def Department.real_number?(number)
+        number =~ /^\+?[1-9]\d{10,11}$/
+    end
+
+    def Department.read_from_txt(file_name)
+        input = File.new(file_name + ".txt")
+        (input.read.split(/#\n*/).map { |object_str| object_str.split(/\n/) }).map { |object| object = Department.new(object.shift, object.shift, object)}
+    end
+    
+    def Department.read_from_YAML(file_name)
+        require 'yaml'
+        YAML.load_file(file_name + ".yaml")
+    end
+
+    def Department.print_objects(array)
+        array.length.times do |index|
+            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: \n\t\t#{array[index].duties("\n\t\t")}"
+        end
+    end
+
+    def Department.write_to_txt(array, file_name)
+        output = File.new(file_name + ".txt", "w")
+        output.puts array.map { |object| object = ([] << object.name << object.phone_number << object.duties("\n")).join("\n") }.join("\n#\n")
+        output.close()
+    end
+
+    def Department.write_to_YAML(array, file_name)
+        require 'yaml'
+        output = File.new(file_name + ".yaml", "w")
+        YAML.dump(array, output)
+        output.close()
+    end
+    def to_s
+        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: \n\t#{duties("\n\t")}"
+    end
+end
+
+begin
+    oleg = Department.new("Oleg", "+79778930093")
+    pavel = Department.new("Pavel", "+79009053535")
+    oleg.add_duty("сделать всю домашку")
+    oleg.add_duty("сварить вкусну кашку")
+    oleg.add_duty("хорошо покушать")
+    oleg.add_duty("изменить это задание")
+    oleg.add_duty("музыку послушать")
+    oleg.select_duty(3)
+    oleg.set_duty("удалить это задание")
+    oleg.delete_duty
+    # puts oleg
+    readed_objects = Department.read_from_txt("some_Department_data")
+    # Department.print_objects(readed_objects)
+    danna = Department.new("Danna", "+66666666666")
+    danna.add_duty("сдать вторую лабу")
+    danna.add_duty("отдохнуть")
+    danna.add_duty("сдать остальные лабы")
+    readed_objects << danna
+    # Department.write_to_txt(readed_objects, "exported_data")
+    Department.write_to_YAML(readed_objects, "exported_data")
+    Department.print_objects(Department.read_from_YAML("exported_data"))
+end
