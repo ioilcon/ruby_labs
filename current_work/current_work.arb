@@ -69,6 +69,11 @@ class Department
         input = File.new(file_name + ".txt")
         (input.read.split(/#\n*/).map { |object_str| object_str.split(/\n/) }).map { |object| object = Department.new(object.shift, object.shift, object)}
     end
+    
+    def Department.read_from_YAML(file_name)
+        require 'yaml'
+        YAML.load_file(file_name + ".yaml")
+    end
 
     def Department.print_objects(array)
         array.length.times do |index|
@@ -106,12 +111,13 @@ begin
     oleg.delete_duty
     # puts oleg
     readed_objects = Department.read_from_txt("some_Department_data")
-    Department.print_objects(readed_objects)
+    # Department.print_objects(readed_objects)
     danna = Department.new("Danna", "+66666666666")
     danna.add_duty("сдать вторую лабу")
     danna.add_duty("отдохнуть")
     danna.add_duty("сдать остальные лабы")
     readed_objects << danna
-    Department.write_to_txt(readed_objects, "exported_data")
+    # Department.write_to_txt(readed_objects, "exported_data")
     Department.write_to_YAML(readed_objects, "exported_data")
+    Department.print_objects(Department.read_from_YAML("exported_data"))
 end
