@@ -1,8 +1,9 @@
 class Department
-    attr_accessor :name, :phone_number
+    attr_accessor :name
+    attr_reader :phone_number
 
     def initialize(name, phone_number, duties = [])
-        @name, @duties= name, duties
+        @name, @duties = name, duties
         self.phone_number = phone_number
         @selected_duty = 0
     end
@@ -52,16 +53,31 @@ class Department
         end
     end
 
+    def duties
+        @duties.join(", ")
+    end
+
     def putsDuties
-        puts "#{name}'s duties: #{@duties.join(", ")}"
+        puts "#{name}'s duties: #{duties}"
     end
     
     def Department.real_number?(number)
         number =~ /^\+?[1-9]\d{10,11}$/
     end
 
+    def Department.read_from_txt(file_name)
+        input = File.new(file_name + ".txt")
+        (input.read.split(/#\n*/).map { |object_str| object_str.split(/\n/) }).map { |object| object = Department.new(object.shift, object.shift, object)}
+    end
+
+    def Department.print_objects(array)
+        array.length.times do |index|
+            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: #{array[index].duties}."
+        end
+    end
+
     def to_s
-        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: #{@duties.join(", ")}."
+        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: #{duties}."
     end
 end
 
@@ -75,7 +91,7 @@ begin
     oleg.add_duty("музыку послушать")
     oleg.select_duty(3)
     oleg.set_duty("удалить это задание")
-    puts oleg
     oleg.delete_duty
     puts oleg
+    Department.print_objects(Department.read_from_txt("some_Department_data"))
 end
