@@ -1,17 +1,81 @@
 class Department
     attr_accessor :name, :phone_number
 
-    def initialize(name, phone_number)
-        @name, @phone_number = name, phone_number
+    def initialize(name, phone_number, duties = [])
+        @name, @duties= name, duties
+        self.phone_number = phone_number
+        @selected_duty = 0
+    end
+
+    def phone_number=(number)
+        if Department.real_number?(number)
+            @phone_number = number
+        else
+            # Exeption
+        end
+    end
+
+    def add_duty(duty)
+        @duties.push(duty)
+    end
+
+    def select_duty(index)
+        if index < @duties.length() then
+            @selected_duty = index
+        else
+            # Exeption
+        end
+    end
+
+    def delete_duty
+        if @selected_duty < @duties.length() then
+            @duties.delete_at(@selected_duty)
+            @selected_duty = 0
+        else
+            # Exeption
+        end
+    end
+
+    def get_duty
+        if @selected_duty < @duties.length() then
+            @duties[@selected_duty]
+        else
+            # Exeption
+        end
+    end
+
+    def set_duty(new_duty)
+        if @selected_duty < @duties.length() then
+            @duties[@selected_duty] = new_duty
+        else
+            # Exeption
+        end
+    end
+
+    def putsDuties
+        puts "#{name}'s duties: #{@duties.join(", ")}"
+    end
+    
+    def Department.real_number?(number)
+        number =~ /^\+?[1-9]\d{10,11}$/
     end
 
     def to_s
-        "Department object\nName: #{name} \nPhone number: #{phone_number}"
+        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: #{@duties.join(", ")}."
     end
 end
 
 begin
     oleg = Department.new("Oleg", "+79778930093")
     pavel = Department.new("Pavel", "+79009053535")
-    puts oleg, pavel
+    oleg.add_duty("сделать всю домашку")
+    oleg.add_duty("сварить вкусну кашку")
+    oleg.add_duty("хорошо покушать")
+    oleg.add_duty("изменить это задание")
+    oleg.add_duty("музыку послушать")
+    oleg.select_duty(3)
+    oleg.set_duty("удалить это задание")
+    puts oleg
+    oleg.delete_duty
+    puts oleg
 end
