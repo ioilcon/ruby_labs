@@ -99,6 +99,12 @@ begin
     oleg.set_duty("удалить это задание")
     oleg.delete_duty
     # puts oleg
-    # Department.print_objects(Department.read_from_txt("some_Department_data"))
-    Department.write_to_txt(Department.read_from_txt("some_Department_data"), "exported_data")
+    readed_objects = Department.read_from_txt("some_Department_data")
+    Department.print_objects(readed_objects)
+    danna = Department.new("Danna", "+66666666666")
+    danna.add_duty("сдать вторую лабу")
+    danna.add_duty("отдохнуть")
+    danna.add_duty("сдать остальные лабы")
+    readed_objects << danna
+    Department.write_to_txt(readed_objects, "exported_data")
 end
