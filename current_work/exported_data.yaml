@@ -1,0 +1,24 @@
+---
+- !ruby/object:Department
+  duties:
+  - погулять
+  - кота погладить
+  name: Vilka
+  phone_number: "+38068610116"
+  selected_duty: 0
+- !ruby/object:Department
+  duties:
+  - погавкать
+  - найти хозяйку
+  - ещё погавкать
+  name: Donya
+  phone_number: '88887777777'
+  selected_duty: 0
+- !ruby/object:Department
+  duties:
+  - сдать вторую лабу
+  - отдохнуть
+  - сдать остальные лабы
+  name: Danna
+  phone_number: "+66666666666"
+  selected_duty: 0

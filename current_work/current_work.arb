@@ -82,6 +82,12 @@ class Department
         output.close()
     end
 
+    def Department.write_to_YAML(array, file_name)
+        require 'yaml'
+        output = File.new(file_name + ".yaml", "w")
+        YAML.dump(array, output)
+        output.close()
+    end
     def to_s
         "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: \n\t#{duties("\n\t")}"
     end
@@ -107,4 +113,5 @@ begin
     danna.add_duty("сдать остальные лабы")
     readed_objects << danna
     Department.write_to_txt(readed_objects, "exported_data")
+    Department.write_to_YAML(readed_objects, "exported_data")
 end
