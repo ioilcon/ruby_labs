@@ -54,11 +54,11 @@ class Department
     end
 
     def duties
-        @duties.join(", ")
+        "\t" + @duties.join("\n\t")
     end
 
     def putsDuties
-        puts "#{name}'s duties: #{duties}"
+        puts "#{name}'s duties: \n#{duties}"
     end
     
     def Department.real_number?(number)
@@ -72,12 +72,17 @@ class Department
 
     def Department.print_objects(array)
         array.length.times do |index|
-            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: #{array[index].duties}."
+            puts "Department object ##{index + 1}\n\tName: #{array[index].name} \n\tPhone number: #{array[index].phone_number}\n\tDuties: \n\t#{array[index].duties.split(/\n/).join("\n\t")}"
         end
     end
 
+    def Department.write_to_txt(array, file_name)
+        output = File.new(file_name + ".txt", "w")
+
+    end
+
     def to_s
-        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: #{duties}."
+        "Department object\nName: #{name} \nPhone number: #{phone_number}\nDuties: \n#{duties}"
     end
 end
 
