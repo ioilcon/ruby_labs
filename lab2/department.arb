@@ -62,7 +62,7 @@ class Department
     end
     
     def Department.real_number?(number)
-        number =~ /^\+?[1-9]\d{10,11}$/
+        number =~ /^\+?[1-9]\d{10,12}$/
     end
 
     def Department.read_from_txt(file_name)

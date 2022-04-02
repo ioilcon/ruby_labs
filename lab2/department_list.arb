@@ -1,5 +1,7 @@
+require 'Department'
+
+
 class Department_list
-    require 'Department'
 
     def initialize(object_list)
         self.notes = object_list
