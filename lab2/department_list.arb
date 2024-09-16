@@ -1,0 +1,21 @@
+require 'Department'
+
+
+class Department_list
+
+    def initialize(object_list)
+        self.notes = object_list
+    end
+
+    def notes=(object_list)
+        object_list.each { |object| @notes.add_note() }
+    end
+
+    def add_note(object)
+        @notes << object if object.class == Department
+    end
+
+    begin
+        "hmmm"
+    end
+end
